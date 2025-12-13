@@ -1,0 +1,10 @@
+{
+  "name": "@qe-technologies/qe-web-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "@qe-technologies/qe-web"
+    ]
+  }
+}
