@@ -12,6 +12,7 @@ import {
   HealingSteelAnimation,
 } from "../components/AnimatedBackgrounds";
 import { DisclaimerModal } from "../components/DisclaimerModal";
+import { blogPosts } from "../blogs";
 
 export function QESplashPage() {
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
@@ -469,42 +470,50 @@ export function QESplashPage() {
               physics behind qE.
             </p>
             <div className="mt-6 grid gap-4 text-xs text-slate-300 md:grid-cols-3">
-              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-                <p className="text-[0.7rem] uppercase tracking-wide text-cyan-300">
-                  Blog
-                </p>
-                <h3 className="mt-1 text-sm font-semibold text-slate-50">
-                  How an Entangled-Photon Smartwatch Could Actually Work
-                </h3>
-                <p className="mt-2">
-                  A practical tour of the nonlinear optics and integrated
-                  photonics we use in Pebble.
-                </p>
-              </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-                <p className="text-[0.7rem] uppercase tracking-wide text-cyan-300">
-                  Blog
-                </p>
-                <h3 className="mt-1 text-sm font-semibold text-slate-50">
-                  Faster-Than-Light Without Paradoxes?
-                </h3>
-                <p className="mt-2">
-                  What “self-consistent” really means when you&apos;re pushing
-                  on causality.
-                </p>
-              </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-                <p className="text-[0.7rem] uppercase tracking-wide text-cyan-300">
-                  Blog
-                </p>
-                <h3 className="mt-1 text-sm font-semibold text-slate-50">
-                  Anchor Matter and the Future of Self-Healing Infrastructure
-                </h3>
-                <p className="mt-2">
-                  How active materials and quantum randomness can keep critical
-                  systems in one piece.
-                </p>
-              </div>
+              {blogPosts.map((post) => (
+                <div
+                  key={post.title}
+                  className="rounded-xl border border-slate-800 bg-slate-900/40 p-4"
+                >
+                  <p className="text-[0.7rem] uppercase tracking-wide text-cyan-300">
+                    Blog
+                  </p>
+                  <h3 className="mt-1 text-sm font-semibold text-slate-50">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2">{post.summary}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 space-y-6">
+              {blogPosts.map((post) => (
+                <article
+                  key={`${post.title}-content`}
+                  className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 shadow-lg shadow-cyan-500/5"
+                >
+                  <header className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[0.7rem] uppercase tracking-[0.2em] text-cyan-300">
+                        Blog
+                      </p>
+                      <h3 className="mt-1 text-lg font-semibold text-slate-50">
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-slate-400">{post.summary}</p>
+                    </div>
+                    <span className="rounded-full border border-cyan-400/40 px-3 py-1 text-[0.65rem] font-semibold text-cyan-200 bg-cyan-500/5">
+                      New
+                    </span>
+                  </header>
+                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-200">
+                    {post.content.map((paragraph) => (
+                      <p key={paragraph} className="text-slate-200/90">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </article>
+              ))}
             </div>
             <button className="mt-6 rounded-full border border-slate-700 px-5 py-2 text-xs font-semibold text-slate-100 hover:border-cyan-400">
               Visit the qE Blog
