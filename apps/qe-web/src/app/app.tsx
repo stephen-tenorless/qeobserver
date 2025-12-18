@@ -12,7 +12,6 @@ import {
   HealingSteelAnimation,
 } from "../components/AnimatedBackgrounds";
 import { DisclaimerModal } from "../components/DisclaimerModal";
-import { blogPosts } from "../blogs";
 
 export function QESplashPage() {
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
@@ -43,9 +42,6 @@ export function QESplashPage() {
             </a>
             <a href="#ethics" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
               Ethics
-            </a>
-            <a href="#blog" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
-              Blog
             </a>
           </nav>
           <button className="rounded-full border border-cyan-400 px-4 py-1 text-sm font-medium text-cyan-300 hover:bg-cyan-400/10 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-half">
@@ -80,6 +76,15 @@ export function QESplashPage() {
                   Download Technical Overview
                 </button>
               </div>
+              <p className="flex items-center gap-2 text-xs text-slate-400">
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400/80" aria-hidden />
+                <a
+                  href="/blog"
+                  className="text-cyan-300 hover:text-cyan-200 underline decoration-cyan-500/60 underline-offset-2"
+                >
+                  Explore the qE Blog for research updates and deeper dives.
+                </a>
+              </p>
               <div className="mt-4 grid max-w-lg grid-cols-1 gap-4 text-xs text-slate-300 sm:grid-cols-3 stagger">
                 <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3 hover:border-cyan-500/50 hover:bg-slate-900/60 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 cursor-pointer">
                   <p className="font-semibold text-slate-100">Pebble™</p>
@@ -458,66 +463,36 @@ export function QESplashPage() {
           </div>
         </section>
 
-        {/* Blog teaser */}
+        {/* Blog reference */}
         <section className="bg-slate-950 relative overflow-hidden" id="blog">
           <ResearchVisualization />
           <div className="mx-auto max-w-6xl px-4 py-12 relative z-10">
             <h2 className="text-2xl font-semibold text-slate-50">
-              For the science-obsessed.
+              Research, without the noise.
             </h2>
             <p className="mt-3 max-w-2xl text-sm text-slate-300">
-              Deep dives on entangled photons, active materials, and the real
-              physics behind qE.
+              Get curated updates on entangled photons, active materials, and the calm interfaces that make qE possible.
             </p>
-            <div className="mt-6 grid gap-4 text-xs text-slate-300 md:grid-cols-3">
-              {blogPosts.map((post) => (
-                <div
-                  key={post.title}
-                  className="rounded-xl border border-slate-800 bg-slate-900/40 p-4"
+            <div className="mt-6 grid gap-4 text-xs text-slate-200 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5 shadow-lg shadow-cyan-500/5">
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] text-cyan-300">
+                  Blog
+                </p>
+                <h3 className="mt-1 text-sm font-semibold text-slate-50">
+                  Explore the qE perspective
+                </h3>
+                <p className="mt-2 text-slate-300">
+                  Visit our research blog to see how quantum-aware wearables, Anchor Matter, and the Drive Channel come together in real deployments.
+                </p>
+                <a
+                  href="/blog"
+                  className="mt-4 inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200 font-semibold"
                 >
-                  <p className="text-[0.7rem] uppercase tracking-wide text-cyan-300">
-                    Blog
-                  </p>
-                  <h3 className="mt-1 text-sm font-semibold text-slate-50">
-                    {post.title}
-                  </h3>
-                  <p className="mt-2">{post.summary}</p>
-                </div>
-              ))}
+                  Read the qE Blog
+                  <span aria-hidden>→</span>
+                </a>
+              </div>
             </div>
-            <div className="mt-8 space-y-6">
-              {blogPosts.map((post) => (
-                <article
-                  key={`${post.title}-content`}
-                  className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 shadow-lg shadow-cyan-500/5"
-                >
-                  <header className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[0.7rem] uppercase tracking-[0.2em] text-cyan-300">
-                        Blog
-                      </p>
-                      <h3 className="mt-1 text-lg font-semibold text-slate-50">
-                        {post.title}
-                      </h3>
-                      <p className="text-xs text-slate-400">{post.summary}</p>
-                    </div>
-                    <span className="rounded-full border border-cyan-400/40 px-3 py-1 text-[0.65rem] font-semibold text-cyan-200 bg-cyan-500/5">
-                      New
-                    </span>
-                  </header>
-                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-200">
-                    {post.content.map((paragraph) => (
-                      <p key={paragraph} className="text-slate-200/90">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <button className="mt-6 rounded-full border border-slate-700 px-5 py-2 text-xs font-semibold text-slate-100 hover:border-cyan-400">
-              Visit the qE Blog
-            </button>
           </div>
         </section>
       </main>
@@ -538,9 +513,6 @@ export function QESplashPage() {
             </a>
             <a href="#ethics" className="hover:text-cyan-300">
               Ethics &amp; Safety
-            </a>
-            <a href="#blog" className="hover:text-cyan-300">
-              Blog
             </a>
             <a href="#contact" className="hover:text-cyan-300">
               Contact
