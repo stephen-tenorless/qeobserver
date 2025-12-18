@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import {
   QuantumLatticeBackground,
   StressVisualization,
@@ -10,189 +11,140 @@ import {
   HealingGlassAnimation,
   HealingSteelAnimation,
 } from "../components/AnimatedBackgrounds";
-import ConversionForms from "../components/ConversionForms";
 import { SocialLoginPanel } from "../components/forms/SocialLoginPanel";
-import { DisclaimerModal } from "../components/DisclaimerModal";
+import { SiteLayout } from "./SiteLayout";
+import { EarlyAccessPage } from "./pages/EarlyAccessPage";
+import { PartnershipsPage } from "./pages/PartnershipsPage";
+import { TechnicalOverviewPage } from "./pages/TechnicalOverviewPage";
+import { usePageMetadata } from "./seo";
 
 export function QESplashPage() {
-  const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  usePageMetadata(
+    "qE Technologies | Calm quantum interfaces for matter and biology",
+    "qE Technologies builds calm quantum interfaces—Pebble wearable, Anchor Matter, and Drive Channel—to monitor stress, heal materials, and guide adaptive biology.",
+    "quantum wearables, Anchor Matter, Drive Channel, calm computing, self-healing materials, adaptive biology, structural monitoring"
+  );
 
   useEffect(() => {
-    const description =
-      "qE Technologies builds calm quantum interfaces—Pebble wearable, Anchor Matter, and Drive Channel—to monitor stress, heal materials, and guide adaptive biology.";
-    const keywords =
-      "quantum wearables, Anchor Matter, Drive Channel, calm computing, self-healing materials, adaptive biology, structural monitoring";
+    if (location.pathname !== "/") return;
 
-    document.title = "qE Technologies | Calm quantum interfaces for matter and biology";
-
-    const ensureMetaTag = (name: string, content: string, property = false) => {
-      const selector = property ? `meta[property='${name}']` : `meta[name='${name}']`;
-      let meta = document.querySelector(selector) as HTMLMetaElement | null;
-
-      if (!meta) {
-        meta = document.createElement("meta");
-        if (property) {
-          meta.setAttribute("property", name);
-        } else {
-          meta.name = name;
-        }
-        document.head.appendChild(meta);
+    if (location.hash) {
+      const target = document.getElementById(location.hash.replace("#", ""));
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-
-      meta.setAttribute("content", content);
-    };
-
-    ensureMetaTag("description", description);
-    ensureMetaTag("keywords", keywords);
-    ensureMetaTag("og:title", "qE Technologies · Pebble, Anchor Matter, Drive Channel", true);
-    ensureMetaTag("og:description", description, true);
-    ensureMetaTag("twitter:description", description);
-  }, []);
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      try {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (error) {
+        // jsdom and some environments don't implement scrollTo; ignore during tests
+      }
     }
-  };
+  }, [location.pathname, location.hash]);
+
+  const goToEarlyAccess = () => navigate("/early-access");
+  const goToTechnicalOverview = () => navigate("/technical-overview");
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <DisclaimerModal
-        isOpen={isDisclaimerOpen}
-        onClose={() => setIsDisclaimerOpen(false)}
-      />
-      {/* Nav */}
-      <header className="border-b border-slate-800 backdrop-blur-md bg-slate-950/80">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-2 group cursor-pointer">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/20 group-hover:bg-cyan-500/40 group-hover:shadow-lg group-hover:shadow-cyan-500/40 transition-all duration-300">
-              <span className="text-lg font-semibold text-cyan-400">qE</span>
+    <main className="bg-slate-950 text-slate-100">
+      <section className="border-b border-slate-900 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
+        <QuantumLatticeBackground />
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 lg:flex-row lg:items-center relative z-10">
+          <div className="flex-1 space-y-6 animate-fade-in-up">
+            <p className="text-xs uppercase tracking-[0.25em] text-cyan-400 font-semibold">
+              Calm minds. Cooperative matter.
+            </p>
+            <h1 className="text-4xl font-semibold tracking-tight text-slate-50 sm:text-5xl leading-tight">
+              From observation to action.
+              <span className="block text-cyan-300 animate-pulse">
+                Instantly.
+              </span>
+            </h1>
+            <p className="max-w-xl text-sm text-slate-300 sm:text-base leading-relaxed">
+              qE links a new class of quantum-aware wearables with living and non-living systems—so structures sense stress, cells detect damage, and genetic expression optimizes in real time. All through a calm, quantum gate. All instantly responsive.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                className="rounded-full bg-cyan-400 px-6 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                onClick={goToEarlyAccess}
+              >
+                Request Early Access
+              </button>
+              <button
+                className="rounded-full border border-slate-700 px-6 py-2 text-sm font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+                onClick={goToTechnicalOverview}
+              >
+                Download Technical Overview
+              </button>
             </div>
-            <span className="text-sm font-medium text-slate-300 group-hover:text-cyan-300 transition-colors">
-              qE Technologies
-            </span>
+            <p className="flex items-center gap-2 text-xs text-slate-400">
+              <span className="inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400/80" aria-hidden />
+              <a
+                href="/blog"
+                className="text-cyan-300 hover:text-cyan-200 underline decoration-cyan-500/60 underline-offset-2"
+              >
+                Explore the qE Blog for research updates and deeper dives.
+              </a>
+            </p>
+            <div className="mt-4 grid max-w-lg grid-cols-1 gap-4 text-xs text-slate-300 sm:grid-cols-3 stagger">
+              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3 hover:border-cyan-500/50 hover:bg-slate-900/60 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 cursor-pointer">
+                <p className="font-semibold text-slate-100">Pebble™</p>
+                <p>Neural interface wearable. Quantum gates calm perception. Direct intent encoding.</p>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3 hover:border-cyan-500/50 hover:bg-slate-900/60 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 cursor-pointer">
+                <p className="font-semibold text-slate-100">
+                  Anchor Matter™
+                </p>
+                <p>Programmable substrates. Structural, cellular, and genetic. Sense and respond.</p>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3">
+                <p className="font-semibold text-slate-100">
+                  Drive Channel
+                </p>
+                <p>Quantum-safe control layer. Materials. Biology. Genetic systems.</p>
+              </div>
+            </div>
           </div>
-          <nav className="hidden gap-6 text-sm text-slate-300 sm:flex">
-            <a href="#how" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
-              How it works
-            </a>
-            <a href="#stack" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
-              qE Stack
-            </a>
-            <a href="#ethics" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
-              Ethics
-            </a>
-            <a href="#contact" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
-              Contact
-            </a>
-          </nav>
-          <button
-            onClick={() => scrollToSection("early-access")}
-            className="rounded-full border border-cyan-400 px-4 py-1 text-sm font-medium text-cyan-300 hover:bg-cyan-400/10 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-half"
-          >
-            Request Early Access
-          </button>
+
+          {/* Pebble device visual with neural interface */}
+          <div className="flex-1 animate-slide-in-right">
+            <div className="mx-auto flex h-72 w-72 items-center justify-center rounded-[2rem] border border-slate-700 bg-slate-900/60 shadow-2xl shadow-cyan-500/10 hover:shadow-cyan-500/20 transition-all duration-300 group cursor-pointer overflow-hidden">
+              <img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 768 768'%3E%3Crect fill='%23000' width='768' height='768'/%3E%3Ctext x='50%25' y='40%25' text-anchor='middle' font-size='72' font-family='monospace' font-weight='bold' fill='%2300ffff' dominant-baseline='middle'%3ENeural%3C/text%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' font-size='72' font-family='monospace' font-weight='bold' fill='%2300ffff' dominant-baseline='middle'%3Einterface:%3C/text%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-size='72' font-family='monospace' font-weight='bold' fill='%2300ffff' dominant-baseline='middle'%3EUNLOCKED%3C/text%3E%3Ctext x='50%25' y='72%25' text-anchor='middle' font-size='48' font-family='monospace' fill='%2300ffff' dominant-baseline='middle'%3ECalm channel active.%3C/text%3E%3Ctext x='50%25' y='82%25' text-anchor='middle' font-size='48' font-family='monospace' fill='%2300ffff' dominant-baseline='middle'%3EAI translator online.%3C/text%3E%3C/svg%3E"
+                alt="Pebble Neural Interface - Unlocked"
+                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <p className="mt-4 text-center text-xs text-slate-400">
+              Pebble™ neural interface. Quantum-aware processing at your wrist.
+            </p>
+          </div>
         </div>
-      </header>
+      </section>
 
-      {/* Hero */}
-      <main>
-        <section className="border-b border-slate-900 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
-          <QuantumLatticeBackground />
-          <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 lg:flex-row lg:items-center relative z-10">
-            <div className="flex-1 space-y-6 animate-fade-in-up">
-              <p className="text-xs uppercase tracking-[0.25em] text-cyan-400 font-semibold">
-                Calm minds. Cooperative matter.
-              </p>
-              <h1 className="text-4xl font-semibold tracking-tight text-slate-50 sm:text-5xl leading-tight">
-                From observation to action.
-                <span className="block text-cyan-300 animate-pulse">
-                  Instantly.
-                </span>
-              </h1>
-              <p className="max-w-xl text-sm text-slate-300 sm:text-base leading-relaxed">
-                qE links a new class of quantum-aware wearables with living and non-living systems—so structures sense stress, cells detect damage, and genetic expression optimizes in real time. All through a calm, quantum gate. All instantly responsive.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  className="rounded-full bg-cyan-400 px-6 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1 active:scale-95"
-                  onClick={() => scrollToSection("early-access")}
-                >
-                  Request Early Access
-                </button>
-                <button
-                  className="rounded-full border border-slate-700 px-6 py-2 text-sm font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
-                  onClick={() => scrollToSection("technical-overview")}
-                >
-                  Download Technical Overview
-                </button>
-              </div>
-              <p className="flex items-center gap-2 text-xs text-slate-400">
-                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400/80" aria-hidden />
-                <a
-                  href="/blog"
-                  className="text-cyan-300 hover:text-cyan-200 underline decoration-cyan-500/60 underline-offset-2"
-                >
-                  Explore the qE Blog for research updates and deeper dives.
-                </a>
-              </p>
-              <div className="mt-4 grid max-w-lg grid-cols-1 gap-4 text-xs text-slate-300 sm:grid-cols-3 stagger">
-                <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3 hover:border-cyan-500/50 hover:bg-slate-900/60 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 cursor-pointer">
-                  <p className="font-semibold text-slate-100">Pebble™</p>
-                  <p>Neural interface wearable. Quantum gates calm perception. Direct intent encoding.</p>
-                </div>
-                <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3 hover:border-cyan-500/50 hover:bg-slate-900/60 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 cursor-pointer">
-                  <p className="font-semibold text-slate-100">
-                    Anchor Matter™
-                  </p>
-                  <p>Programmable substrates. Structural, cellular, and genetic. Sense and respond.</p>
-                </div>
-                <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-3">
-                  <p className="font-semibold text-slate-100">
-                    Drive Channel
-                  </p>
-                  <p>Quantum-safe control layer. Materials. Biology. Genetic systems.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Pebble device visual with neural interface */}
-            <div className="flex-1 animate-slide-in-right">
-              <div className="mx-auto flex h-72 w-72 items-center justify-center rounded-[2rem] border border-slate-700 bg-slate-900/60 shadow-2xl shadow-cyan-500/10 hover:shadow-cyan-500/20 transition-all duration-300 group cursor-pointer overflow-hidden">
-                <img
-                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 768 768'%3E%3Crect fill='%23000' width='768' height='768'/%3E%3Ctext x='50%25' y='40%25' text-anchor='middle' font-size='72' font-family='monospace' font-weight='bold' fill='%2300ffff' dominant-baseline='middle'%3ENeural%3C/text%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' font-size='72' font-family='monospace' font-weight='bold' fill='%2300ffff' dominant-baseline='middle'%3Einterface:%3C/text%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-size='72' font-family='monospace' font-weight='bold' fill='%2300ffff' dominant-baseline='middle'%3EUNLOCKED%3C/text%3E%3Ctext x='50%25' y='72%25' text-anchor='middle' font-size='48' font-family='monospace' fill='%2300ffff' dominant-baseline='middle'%3ECalm channel active.%3C/text%3E%3Ctext x='50%25' y='82%25' text-anchor='middle' font-size='48' font-family='monospace' fill='%2300ffff' dominant-baseline='middle'%3EAI translator online.%3C/text%3E%3C/svg%3E"
-                  alt="Pebble Neural Interface - Unlocked"
-                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <p className="mt-4 text-center text-xs text-slate-400">
-                Pebble™ neural interface. Quantum-aware processing at your wrist.
-              </p>
-            </div>
+      {/* Login services near the top for quick access */}
+      <section className="border-b border-slate-900 bg-slate-950" id="login">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 lg:flex-row lg:items-center">
+          <div className="flex-1 space-y-3">
+            <p className="text-xs uppercase tracking-[0.25em] text-cyan-400 font-semibold">
+              Login services
+            </p>
+            <h2 className="text-2xl font-semibold text-slate-50">
+              Capture your profile and sync with qE instantly.
+            </h2>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              Start with social login to pin your details before exploring early access, technical overviews,
+              and partnership flows. Everything routes to the right team without repeating your info.
+            </p>
           </div>
-        </section>
-
-        {/* Login services near the top for quick access */}
-        <section className="border-b border-slate-900 bg-slate-950" id="login">
-          <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 lg:flex-row lg:items-center">
-            <div className="flex-1 space-y-3">
-              <p className="text-xs uppercase tracking-[0.25em] text-cyan-400 font-semibold">
-                Login services
-              </p>
-              <h2 className="text-2xl font-semibold text-slate-50">
-                Capture your profile and sync with qE instantly.
-              </h2>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Start with social login to pin your details before exploring early access, technical overviews,
-                and partnership flows. Everything routes to the right team without repeating your info.
-              </p>
-            </div>
-            <div className="flex-1">
-              <SocialLoginPanel />
-            </div>
+          <div className="flex-1">
+            <SocialLoginPanel />
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* What qE Does */}
         <section className="border-b border-slate-900 bg-slate-950 relative overflow-hidden" id="what">
@@ -568,42 +520,7 @@ export function QESplashPage() {
             </div>
           </div>
         </section>
-
-        <ConversionForms />
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950">
-        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-200">qE Technologies</span>
-            <span>· Calm minds. Cooperative matter.</span>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <a href="#what" className="hover:text-cyan-300">
-              About
-            </a>
-            <a href="#how" className="hover:text-cyan-300">
-              Science
-            </a>
-            <a href="#ethics" className="hover:text-cyan-300">
-              Ethics &amp; Safety
-            </a>
-            <a href="#contact" className="hover:text-cyan-300">
-              Contact
-            </a>
-          </div>
-        </div>
-        <p className="pb-4 text-center text-[0.65rem] text-slate-600">
-          <button
-            onClick={() => setIsDisclaimerOpen(true)}
-            className="text-slate-500 hover:text-cyan-400 transition-colors underline"
-          >
-            Disclaimer
-          </button>
-        </p>
-      </footer>
-    </div>
+    </main>
   );
 }
 
@@ -612,7 +529,16 @@ export function QESplashPage() {
  * We wrap the splash page in an App component and export it.
  */
 export function App() {
-  return <QESplashPage />;
+  return (
+    <Routes>
+      <Route element={<SiteLayout />}>
+        <Route index element={<QESplashPage />} />
+        <Route path="/early-access" element={<EarlyAccessPage />} />
+        <Route path="/technical-overview" element={<TechnicalOverviewPage />} />
+        <Route path="/partnerships" element={<PartnershipsPage />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;
