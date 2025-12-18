@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   QuantumLatticeBackground,
   StressVisualization,
@@ -11,10 +10,50 @@ import {
   HealingGlassAnimation,
   HealingSteelAnimation,
 } from "../components/AnimatedBackgrounds";
+import ConversionForms from "../components/ConversionForms";
 import { DisclaimerModal } from "../components/DisclaimerModal";
 
 export function QESplashPage() {
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
+
+  useEffect(() => {
+    const description =
+      "qE Technologies builds calm quantum interfaces—Pebble wearable, Anchor Matter, and Drive Channel—to monitor stress, heal materials, and guide adaptive biology.";
+    const keywords =
+      "quantum wearables, Anchor Matter, Drive Channel, calm computing, self-healing materials, adaptive biology, structural monitoring";
+
+    document.title = "qE Technologies | Calm quantum interfaces for matter and biology";
+
+    const ensureMetaTag = (name: string, content: string, property = false) => {
+      const selector = property ? `meta[property='${name}']` : `meta[name='${name}']`;
+      let meta = document.querySelector(selector) as HTMLMetaElement | null;
+
+      if (!meta) {
+        meta = document.createElement("meta");
+        if (property) {
+          meta.setAttribute("property", name);
+        } else {
+          meta.name = name;
+        }
+        document.head.appendChild(meta);
+      }
+
+      meta.setAttribute("content", content);
+    };
+
+    ensureMetaTag("description", description);
+    ensureMetaTag("keywords", keywords);
+    ensureMetaTag("og:title", "qE Technologies · Pebble, Anchor Matter, Drive Channel", true);
+    ensureMetaTag("og:description", description, true);
+    ensureMetaTag("twitter:description", description);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -43,8 +82,14 @@ export function QESplashPage() {
             <a href="#ethics" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
               Ethics
             </a>
+            <a href="#contact" className="relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all">
+              Contact
+            </a>
           </nav>
-          <button className="rounded-full border border-cyan-400 px-4 py-1 text-sm font-medium text-cyan-300 hover:bg-cyan-400/10 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-half">
+          <button
+            onClick={() => scrollToSection("early-access")}
+            className="rounded-full border border-cyan-400 px-4 py-1 text-sm font-medium text-cyan-300 hover:bg-cyan-400/10 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-half"
+          >
             Request Early Access
           </button>
         </div>
@@ -69,10 +114,16 @@ export function QESplashPage() {
                 qE links a new class of quantum-aware wearables with living and non-living systems—so structures sense stress, cells detect damage, and genetic expression optimizes in real time. All through a calm, quantum gate. All instantly responsive.
               </p>
               <div className="flex flex-wrap gap-3">
-                <button className="rounded-full bg-cyan-400 px-6 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1 active:scale-95">
+                <button
+                  className="rounded-full bg-cyan-400 px-6 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                  onClick={() => scrollToSection("early-access")}
+                >
                   Request Early Access
                 </button>
-                <button className="rounded-full border border-slate-700 px-6 py-2 text-sm font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+                <button
+                  className="rounded-full border border-slate-700 px-6 py-2 text-sm font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+                  onClick={() => scrollToSection("technical-overview")}
+                >
                   Download Technical Overview
                 </button>
               </div>
@@ -495,6 +546,8 @@ export function QESplashPage() {
             </div>
           </div>
         </section>
+
+        <ConversionForms />
       </main>
 
       {/* Footer */}
