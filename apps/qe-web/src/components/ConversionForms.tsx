@@ -1,7 +1,6 @@
 import React from 'react';
 import { EarlyAccessForm } from './forms/EarlyAccessForm';
 import { PartnershipForm } from './forms/PartnershipForm';
-import { SocialLoginPanel } from './forms/SocialLoginPanel';
 import { TechnicalOverviewForm } from './forms/TechnicalOverviewForm';
 
 export const ConversionForms: React.FC = () => {
@@ -38,7 +37,6 @@ export const ConversionForms: React.FC = () => {
           </div>
 
           <div className="space-y-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-xl shadow-cyan-500/10">
-            <SocialLoginPanel />
             <EarlyAccessForm />
             <TechnicalOverviewForm />
             <PartnershipForm />

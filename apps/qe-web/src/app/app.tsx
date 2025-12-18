@@ -11,6 +11,7 @@ import {
   HealingSteelAnimation,
 } from "../components/AnimatedBackgrounds";
 import ConversionForms from "../components/ConversionForms";
+import { SocialLoginPanel } from "../components/forms/SocialLoginPanel";
 import { DisclaimerModal } from "../components/DisclaimerModal";
 
 export function QESplashPage() {
@@ -168,6 +169,27 @@ export function QESplashPage() {
               <p className="mt-4 text-center text-xs text-slate-400">
                 Pebble™ neural interface. Quantum-aware processing at your wrist.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Login services near the top for quick access */}
+        <section className="border-b border-slate-900 bg-slate-950" id="login">
+          <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 lg:flex-row lg:items-center">
+            <div className="flex-1 space-y-3">
+              <p className="text-xs uppercase tracking-[0.25em] text-cyan-400 font-semibold">
+                Login services
+              </p>
+              <h2 className="text-2xl font-semibold text-slate-50">
+                Capture your profile and sync with qE instantly.
+              </h2>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Start with social login to pin your details before exploring early access, technical overviews,
+                and partnership flows. Everything routes to the right team without repeating your info.
+              </p>
+            </div>
+            <div className="flex-1">
+              <SocialLoginPanel />
             </div>
           </div>
         </section>
