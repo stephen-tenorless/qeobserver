@@ -17,7 +17,7 @@ const navItems: NavItem[] = [
 ];
 
 const baseNavClasses =
-  "relative hover:text-cyan-400 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-cyan-400 after:transition-all";
+  "relative text-slate-100/80 font-medium transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-slate-100/70 after:transition-all hover:text-slate-100";
 
 export const SiteHeader: React.FC = () => {
   const location = useLocation();
@@ -35,31 +35,28 @@ export const SiteHeader: React.FC = () => {
     <header className="border-b border-slate-800 backdrop-blur-md bg-slate-950/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link to="/" className="flex items-center gap-2 group cursor-pointer">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/20 group-hover:bg-cyan-500/40 group-hover:shadow-lg group-hover:shadow-cyan-500/40 transition-all duration-300">
-            <span className="text-lg font-semibold text-cyan-400">qE</span>
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/15 group-hover:bg-cyan-500/25 transition-all duration-300">
+            <span className="text-lg font-semibold text-cyan-300">qE</span>
           </div>
-          <span className="text-sm font-medium text-slate-300 group-hover:text-cyan-300 transition-colors">
+          <span className="text-sm font-medium text-slate-200 group-hover:text-slate-50 transition-colors">
             qE Technologies
           </span>
         </Link>
-        <nav className="hidden gap-6 text-sm text-slate-300 sm:flex">
+        <nav
+          className="hidden items-center gap-6 text-sm text-slate-100 sm:flex"
+          aria-label="Primary"
+        >
           {navItems.map((item) => (
             <Link
               key={item.label}
               to={item.to}
-              className={`${baseNavClasses} ${isActive(item) ? "text-cyan-300 after:w-full" : ""}`}
+              className={`${baseNavClasses} ${isActive(item) ? "text-slate-100 after:w-full" : ""}`}
               aria-current={isActive(item) ? "page" : undefined}
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <Link
-          to="/early-access"
-          className="rounded-full border border-cyan-400 px-4 py-1 text-sm font-medium text-cyan-300 hover:bg-cyan-400/10 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-half"
-        >
-          Request Early Access
-        </Link>
       </div>
     </header>
   );

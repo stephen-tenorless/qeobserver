@@ -45,7 +45,7 @@ export function QESplashPage() {
     }
   }, [location.pathname, location.hash]);
 
-  const goToEarlyAccess = () => navigate("/early-access");
+  const goToPartnerships = () => navigate("/partnerships");
   const goToTechnicalOverview = () => navigate("/technical-overview");
 
   return (
@@ -69,15 +69,15 @@ export function QESplashPage() {
             <div className="flex flex-wrap gap-3">
               <button
                 className="rounded-full bg-cyan-400 px-6 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1 active:scale-95"
-                onClick={goToEarlyAccess}
+                onClick={goToTechnicalOverview}
               >
-                Request Early Access
+                View Technical Overview
               </button>
               <button
                 className="rounded-full border border-slate-700 px-6 py-2 text-sm font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
-                onClick={goToTechnicalOverview}
+                onClick={goToPartnerships}
               >
-                Download Technical Overview
+                Talk with qE
               </button>
             </div>
             <p className="flex items-center gap-2 text-xs text-slate-400">
@@ -136,8 +136,8 @@ export function QESplashPage() {
               Capture your profile and sync with qE instantly.
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">
-              Start with social login to pin your details before exploring early access, technical overviews,
-              and partnership flows. Everything routes to the right team without repeating your info.
+              Start with social login to pin your details before exploring technical overviews and partnership flows.
+              Everything routes to the right team without repeating your info.
             </p>
           </div>
           <div className="flex-1">
@@ -314,25 +314,51 @@ export function QESplashPage() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-700 bg-slate-900/30 p-8 text-center">
+              <div className="rounded-xl border border-slate-700 bg-slate-900/30 p-8">
                 <div className="text-xs text-slate-400 mb-4 uppercase tracking-wider font-semibold">Healthcare Applications</div>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-slate-900/60 border border-slate-700 p-4">
-                    <p className="text-sm font-semibold text-cyan-300">Chronic Pain Management</p>
-                    <p className="text-xs text-slate-400 mt-2">Precision opioid delivery with no system-wide toxicity.</p>
-                  </div>
-                  <div className="rounded-lg bg-slate-900/60 border border-slate-700 p-4">
-                    <p className="text-sm font-semibold text-cyan-300">Autoimmune Modulation</p>
-                    <p className="text-xs text-slate-400 mt-2">Calm-gated immune suppression. Inflammation detection and response.</p>
-                  </div>
-                  <div className="rounded-lg bg-slate-900/60 border border-slate-700 p-4">
-                    <p className="text-sm font-semibold text-cyan-300">Stroke Recovery</p>
-                    <p className="text-xs text-slate-400 mt-2">Anchor guides neuroplasticity. Neural regeneration on demand.</p>
-                  </div>
-                  <div className="rounded-lg bg-slate-900/60 border border-slate-700 p-4">
-                    <p className="text-sm font-semibold text-cyan-300">Post-Surgical Healing</p>
-                    <p className="text-xs text-slate-400 mt-2">Active tissue repair. Infection prevention. Scar minimization.</p>
-                  </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {[{
+                    title: "Chronic Pain Management",
+                    description: "Precision analgesic delivery with no system-wide toxicity.",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2310B981'/%3E%3Cstop offset='100%25' stop-color='%2338BDF8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='120' height='80' rx='12' fill='%2314335d'/%3E%3Cpath d='M22 40c0-8 6.5-14.5 14.5-14.5S51 32 51 40s-6.5 14.5-14.5 14.5S22 48 22 40Z' fill='url(%23g1)' opacity='0.8'/%3E%3Cpath d='M50 40c0-8 6.5-14.5 14.5-14.5S79 32 79 40s-6.5 14.5-14.5 14.5S50 48 50 40Z' fill='url(%23g1)'/%3E%3Ccircle cx='68' cy='40' r='12' fill='%2300f5ff' opacity='0.65'/%3E%3C/svg%3E"
+                  }, {
+                    title: "Autoimmune Modulation",
+                    description: "Calm-gated immune suppression with inflammation detection.",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23F472B6'/%3E%3Cstop offset='100%25' stop-color='%238B5CF6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='120' height='80' rx='12' fill='%2314335d'/%3E%3Ccircle cx='36' cy='40' r='16' fill='url(%23g2)'/%3E%3Ccircle cx='68' cy='40' r='22' fill='url(%23g2)' opacity='0.65'/%3E%3Cpath d='M52 24h34' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='0.8'/%3E%3Cpath d='M52 56h34' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='0.8'/%3E%3C/svg%3E"
+                  }, {
+                    title: "Stroke Recovery",
+                    description: "Anchor guides neuroplasticity with neural regeneration on demand.",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23256D85'/%3E%3Cstop offset='100%25' stop-color='%2310B981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='120' height='80' rx='12' fill='%2314335d'/%3E%3Cpath d='M32 60c6-18 18-28 32-28s26 10 32 28' stroke='%23a5f3fc' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='64' cy='36' r='12' fill='url(%23g3)' opacity='0.9'/%3E%3Ccircle cx='44' cy='44' r='6' fill='%23a5f3fc' opacity='0.6'/%3E%3Ccircle cx='84' cy='44' r='6' fill='%23a5f3fc' opacity='0.6'/%3E%3C/svg%3E"
+                  }, {
+                    title: "Post-Surgical Healing",
+                    description: "Active tissue repair with infection prevention and scar minimization.",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Cdefs%3E%3ClinearGradient id='g4' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230EA5E9'/%3E%3Cstop offset='100%25' stop-color='%2310B981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='120' height='80' rx='12' fill='%2314335d'/%3E%3Crect x='26' y='22' width='68' height='36' rx='10' fill='url(%23g4)' opacity='0.85'/%3E%3Cpath d='M32 40h56' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M48 32v16' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M72 32v16' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='0.85'/%3E%3C/svg%3E"
+                  }].map((application) => (
+                    <div
+                      key={application.title}
+                      className="rounded-lg bg-slate-900/60 border border-slate-700 p-4 shadow-sm hover:border-cyan-400/60 hover:shadow-cyan-500/10 transition-all duration-300"
+                    >
+                      <div className="mb-3 overflow-hidden rounded-md border border-slate-800">
+                        <img src={application.image} alt={application.title} className="h-28 w-full object-cover" />
+                      </div>
+                      <p className="text-sm font-semibold text-cyan-300">{application.title}</p>
+                      <p className="text-xs text-slate-400 mt-2">{application.description}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    className="rounded-full bg-cyan-400 px-4 py-2 text-xs font-semibold text-slate-950 hover:bg-cyan-300 transition-all duration-300"
+                    onClick={goToTechnicalOverview}
+                  >
+                    See clinical architecture
+                  </button>
+                  <button
+                    className="rounded-full border border-slate-700 px-4 py-2 text-xs font-semibold text-slate-100 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300"
+                    onClick={goToPartnerships}
+                  >
+                    Talk with our clinical team
+                  </button>
                 </div>
               </div>
             </div>
